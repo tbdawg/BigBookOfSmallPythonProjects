@@ -33,11 +33,10 @@ def get_clues(guess, secret_num) -> str:
 
 
 def is_invalid_guess(guess) -> bool:
-    not_valid = False
     for i in range(len(guess)):
         if guess[i] in guess[i+1:]:
-            not_valid = True
-    return not_valid or len(guess) != NUM_DIGITS or not guess.isdecimal()
+            return True
+    return len(guess) != NUM_DIGITS or not guess.isdecimal()
 
 
 def main():
