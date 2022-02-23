@@ -17,7 +17,7 @@ def get_secret_num() -> str:
 def get_clues(guess, secret_num) -> str:
     """Returns a string with the pico, fermi, bagels clues for a guess and secret number pair """
     if guess == secret_num:
-        return 'You got it!'
+        return ''
 
     clues = []
 
@@ -66,11 +66,13 @@ clues would be Fermi Pico.''')
                 print(f'Guess #{num_guesses}')
                 guess = input('> ')
 
-            print(get_clues(guess, secret_num))
-            num_guesses += 1
-
-            if guess == secret_num:
+            clues = get_clues(guess, secret_num)
+            if not clues:
+                print('You got it!')
                 break
+            print(clues)
+
+            num_guesses += 1
             if num_guesses > MAX_GUESSES:
                 print('You ran out of guesses.')
                 print(f'The answer was {secret_num}.')
