@@ -32,6 +32,14 @@ def get_clues(guess, secret_num) -> str:
     return ' '.join(sorted(clues))
 
 
+def is_invalid_guess(guess) -> bool:
+    not_valid = False
+    for i in range(len(guess)):
+        if guess[i] in guess[i+1:]:
+            not_valid = True
+    return not_valid or len(guess) != NUM_DIGITS or not guess.isdecimal()
+
+
 def main():
     print(f'''Bagels, a deductive logic game.
 By Al Sweigart al@inventwithpython.com
@@ -55,12 +63,11 @@ clues would be Fermi Pico.''')
 
         while num_guesses <= MAX_GUESSES:
             guess = ''
-            while len(guess) != NUM_DIGITS or not guess.isdecimal():
+            while is_invalid_guess(guess):
                 print(f'Guess #{num_guesses}')
                 guess = input('> ')
 
-            clues = get_clues(guess, secret_num)
-            print(clues)
+            print(get_clues(guess, secret_num))
             num_guesses += 1
 
             if guess == secret_num:
